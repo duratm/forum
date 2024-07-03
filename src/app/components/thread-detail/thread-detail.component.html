@@ -1,0 +1,31 @@
+<div *ngIf="thread" class="p-4 bg-white shadow-md rounded-md">
+  <a [routerLink]="['/threads']">back</a>
+  <h1 class="text-3xl mb-4">{{ thread.title }}</h1>
+  <p class="text-lg mb-8">{{ thread.content }}</p>
+  <h2 class="text-2xl mb-4">Messages</h2>
+  <ul class="list-none space-y-2 mb-8">
+    <li *ngFor="let post of paginatedPosts" class="text-gray-800 flex items-center space-x-2">
+      <img [src]="post.creator.avatar" alt="Profile picture" class="w-10 h-10 rounded-full">
+      <span>{{ post.creator.username }}:</span>
+      <span *ngIf="!post.editing">{{ post.content }}</span>
+      <textarea *ngIf="post.editing" [(ngModel)]="post.content"
+                (keyup.enter)="updatePost(post)" class="w-full"></textarea> <!-- added (keyup.enter) to respond to the Enter key -->
+      <button *ngIf="post.deletable && !post.editing"
+              class="text-red-600"
+              (click)="deletePost(post.id)">delete</button>
+      <button *ngIf="post.deletable && !post.editing"
+              class="text-blue-600"
+              (click)="post.editing = true">edit</button> <!-- added -->
+      <button *ngIf="post.editable && post.editing"
+              class="text-green-600"
+              (click)="updatePost(post.id)">save</button> <!-- added -->
+    </li>
+  </ul>
+  <button (click)="previousPage()" [disabled]="currentPage == 1">Previous</button>
+  <button (click)="nextPage()" [disabled]="currentPage >= posts.length / perPage">Next</button>
+  <h3 class="text-2xl mb-4">Ajouter un message</h3>
+  <textarea [(ngModel)]="newPostContent" class="w-full p-2 mb-4 bg-gray-100 rounded-md"></textarea>
+  <button (click)="createPost()" class="py-2 px-4 text-white bg-blue-500 hover:bg-blue-700 rounded-md">
+    Envoyer
+  </button>
+</div>

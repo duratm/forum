@@ -1,0 +1,11 @@
+<div class="p-4 bg-white shadow-md rounded-md">
+  <h1 class="text-3xl mb-4">Créer une nouvelle discussion</h1>
+
+  <label for="title" class="block mb-2 text-lg font-bold">Titre</label>
+  <input id="title" [(ngModel)]="title" class="w-full p-2 mb-4 bg-gray-100 rounded-md"/>
+
+  <label for="content" class="block mb-2 text-lg font-bold">Contenu</label>
+  <textarea id="content" [(ngModel)]="content" class="w-full p-2 mb-4 bg-gray-100 rounded-md"></textarea>
+
+  <button (click)="createThread()" class="py-2 px-4 text-white bg-blue-500 hover:bg-blue-700 rounded-md">Créer</button>
+</div>
